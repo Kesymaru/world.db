@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="world.db : Open World Database &amp; Schema" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>world.db</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/geraldb/world.db">View on GitHub</a>
+
+          <h1 id="project_title">world.db</h1>
+          <h2 id="project_tagline">Open World Database &amp; Schema</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/geraldb/world.db/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/geraldb/world.db/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>Welcome to <code>world.db</code>
+</h1>
+
+<p>A Free Open World Database &amp; Schema</p>
+
+<h2>Usage</h2>
+
+<p>Get a copy of the <code>world.db</code> file. That's it.</p>
+
+<h2>Demo</h2>
+
+<p>Try the <code>world.db</code> Web Admin demo running
+on Heroku <a href="http://worlddb.herokuapp.com"><code>worlddb.herokuapp.com</code></a>.</p>
+
+<h2>Tables, Schema</h2>
+
+<p>The <code>world.db</code> includes the following tables:</p>
+
+<ul>
+<li>countries</li>
+<li>regions</li>
+<li>cities</li>
+</ul><p>[add schema pic here]</p>
+
+<h3>
+<code>countries</code> Table</h3>
+
+<pre><code>CREATE TABLE "countries" (
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  "title" varchar(255) NOT NULL,
+  "key" varchar(255) NOT NULL,
+  "tag" varchar(255) NOT NULL,
+  "synonyms" varchar(255),
+  "pop" integer,
+  "area" integer,
+  "created_at" datetime NOT NULL,
+  "updated_at" datetime NOT NULL
+);
+</code></pre>
+
+<h3>
+<code>regions</code> Table</h3>
+
+<pre><code>CREATE TABLE "regions" (
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  "title" varchar(255) NOT NULL,
+  "key" varchar(255) NOT NULL,
+  "synonyms" varchar(255),
+  "country_id" integer NOT NULL,
+  "pop" integer, "area" integer,
+  "created_at" datetime NOT NULL,
+  "updated_at" datetime NOT NULL
+);
+</code></pre>
+
+<h3>
+<code>cities</code> Table</h3>
+
+<pre><code>CREATE TABLE "cities" (
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  "title" varchar(255) NOT NULL,
+  "key" varchar(255) NOT NULL,
+  "synonyms" varchar(255),
+  "country_id" integer NOT NULL,
+  "region_id" integer,
+  "pop" integer,
+  "area" integer,
+  "capital" boolean DEFAULT 'f' NOT NULL,
+  "created_at" datetime NOT NULL,
+  "updated_at" datetime NOT NULL
+);
+</code></pre>
+
+<h2>Command Line Tool</h2>
+
+<pre><code>worlddb - world.db command line tool, version 0.2.0
+
+Usage: worlddb [options]
+    -c, --create                     Create DB Schema
+        --delete                     Delete all records
+        --load                       Use Loader for Builtin World Data
+    -i, --include PATH               Data Path (default is .)
+    -v, --version                    Show version
+        --verbose                    Show debug trace
+    -h, --help                       Show this message
+
+
+Examples:
+    worlddb at/cities                      # import austrian regions n cities
+    worlddb -c                             # create database schema
+</code></pre>
+
+<h2>Build Your Own <code>world.db</code> Version</h2>
+
+<p>Step 1:  Create an empty database, that is, <code>world.db</code>. Issue the command:</p>
+
+<pre><code>worlddb --create
+</code></pre>
+
+<p>Step 2:  Add your countries, regions and cities of choice. For example,
+let's use the Austrian and German cities and regions:</p>
+
+<pre><code>worlddb --include &lt;your_path_to_fixtures&gt; at/cities de/cities
+</code></pre>
+
+<p>That's it.</p>
+
+<h2>Frequently asked questions (F.A.Q.s)</h2>
+
+<p>Q: Why is Kanada spelled with a K and not a C? Why is Argentina spelled Argentien?</p>
+
+<p>A: Look for the English version. In the German version Canada is spelled Kanada
+and Argentina is spelled Argentinien.</p>
+
+<p>Q: Why is country X missing?</p>
+
+<p>A: It all started with Sportbook - an open source footbool pool for the Champions League.
+Is a club from country X playing in the  Champions League 2012/13 season? If, yes, it is included
+in the first commit. </p>
+
+<h2>Real World Usage</h2>
+
+<p><a href="https://github.com/geraldb/world.db.admin">world.db.admin</a> - A free, open source web admin tool for world.db in Ruby on Rails (version 3.2 and up).</p>
+
+<p><a href="https://github.com/geraldb/sport.db">sport.db</a> - A free, open sports database &amp; schema.</p>
+
+<p><a href="http://geraldb.github.com/sportbook">Sportbook</a> - A free, open source sports betting pool
+in Ruby on Rails (version 3.2 and up). </p>
+
+<h2>Alternatives</h2>
+
+<p><a href="http://code.google.com/p/worlddb">worlddb</a> -  Open World Database alpha; includes country, region &amp; city names in many languages names and latitude and longitude numbers and country's iso 2-letter code.</p>
+
+<h2>License</h2>
+
+<p>The <code>world.db</code> schema, data and scripts are dedicated to the public domain.
+Use it as you please with no restrictions whatsoever.</p>
+
+<h2>Questions? Comments?</h2>
+
+<p>Send them along to the <a href="http://groups.google.com/group/opensport">Open Sports Database &amp; Friends Forum/Mailing List</a>. Thanks!</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">world.db maintained by <a href="https://github.com/geraldb">geraldb</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
