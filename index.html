@@ -34,7 +34,7 @@
         <h1>Welcome to <code>world.db</code>
 </h1>
 
-<p>A Free Open World Database &amp; Schema</p>
+<p>A free open world database &amp; schema for use in any language</p>
 
 <h2>Usage</h2>
 
@@ -55,6 +55,8 @@ on Heroku <a href="http://worlddb.herokuapp.com"><code>worlddb.herokuapp.com</co
 <li>countries</li>
 <li>regions</li>
 <li>cities</li>
+<li>taggings</li>
+<li>tags</li>
 </ul><p>[add schema pic here]</p>
 
 <h3>
@@ -108,21 +110,25 @@ on Heroku <a href="http://worlddb.herokuapp.com"><code>worlddb.herokuapp.com</co
 
 <h2>Command Line Tool</h2>
 
-<pre><code>worlddb - world.db command line tool, version 0.2.0
+<pre><code>worlddb - world.db command line tool, version 0.3.0
 
 Usage: worlddb [options]
-    -c, --create                     Create DB Schema
+        --create                     Create DB schema
+    -i, --include PATH               Data path (default is .)
+        --country KEY                Default country for regions 'n' cities
+        --countries                  Use country plain text fixture reader
+        --regions                    Use regions plain text fixture reader
+        --cities                     Use cities  plain text fixture reader
+        --load                       Use loader for builtin world data
         --delete                     Delete all records
-        --load                       Use Loader for Builtin World Data
-    -i, --include PATH               Data Path (default is .)
     -v, --version                    Show version
         --verbose                    Show debug trace
     -h, --help                       Show this message
 
 
 Examples:
-    worlddb at/cities                      # import austrian regions n cities
-    worlddb -c                             # create database schema
+    worlddb at/cities                      # import austrian cities
+    worlddb --create                       # create database schema
 </code></pre>
 
 <h2>Build Your Own <code>world.db</code> Version</h2>
@@ -135,10 +141,37 @@ Examples:
 <p>Step 2:  Add your countries, regions and cities of choice. For example,
 let's use the Austrian and German cities and regions:</p>
 
-<pre><code>worlddb --include &lt;your_path_to_fixtures&gt; at/cities de/cities
+<pre><code>worlddb --include &lt;your_path_to_fixtures&gt; at/regions at/cities de/regions de/cities
 </code></pre>
 
 <p>That's it.</p>
+
+<h2>Plain Text Fixtures</h2>
+
+<p>The <code>worlddb</code> command line tool lets you import fixtures (countries, regions, cities)
+in plain text. Example:</p>
+
+<p><a href="https://github.com/geraldb/world.db/blob/master/america/countries.txt"><code>america/countries.txt</code></a>:</p>
+
+<pre><code>ca, Canada,        CAN, 9984670,  34278406, north america|en|fr
+mx, Mexico,        MEX, 1972550, 112322757, north america|en
+us, United States, USA, 9629091, 314167157, north america|es
+</code></pre>
+
+<p><a href="https://github.com/geraldb/world.db/blob/master/europe/at/cities.txt"><code>europe/at/cities.txt</code></a>:</p>
+
+<pre><code>wien,        Wien|Vienna,                  region:wien, 1664146
+stpoelten,   St. Pölten,                   region:noe,   51360
+wrneustadt,  Wiener Neustadt|Wr. Neustadt, region:noe,   39940
+</code></pre>
+
+<p>The plain text format reader skips comments (starting with <code>#</code>)
+and blank lines. Example:</p>
+
+<pre><code>###################################################
+# Your comments here
+#
+</code></pre>
 
 <h2>Frequently asked questions (F.A.Q.s)</h2>
 
@@ -164,7 +197,21 @@ in Ruby on Rails (version 3.2 and up). </p>
 
 <h2>Alternatives</h2>
 
-<p><a href="http://code.google.com/p/worlddb">worlddb</a> -  Open World Database alpha; includes country, region &amp; city names in many languages names and latitude and longitude numbers and country's iso 2-letter code.</p>
+<p><a href="http://geonames.org">geonames.org</a> - open geo (geographical) database covers all countries and contains over eight million placenames</p>
+
+<p><a href="http://code.google.com/p/worlddb">worlddb</a> -  open world database alpha; includes country, region &amp; city names in many languages names and latitude and longitude numbers and country's iso 2-letter code.</p>
+
+<p><a href="https://github.com/hexorx/countries">countries</a> - world countries; includes data from ISO 3166 (countries and states/subdivisions ), ISO 4217 (currency), and E.164 (phone numbers).</p>
+
+<p><a href="https://github.com/mledoze/countries">countries</a> - world countries with iso codes, currencies and more in JSON, CSV and XML.</p>
+
+<p><a href="https://github.com/coderholic/django-cities">django-cities</a> - python script for importing countries, regions, cities etc. from geonames.org</p>
+
+<p><a href="https://github.com/ewheeler/current-countries-of-earth">current-countries-of-earth</a> - python script to fetch current ISO 3166 country info; output as JSON</p>
+
+<h2>Thank You - Contributors - ¡Gracias! - Obrigado - Danke</h2>
+
+<p>Ernesto Chapon - William de Melo Gueiros</p>
 
 <h2>License</h2>
 
